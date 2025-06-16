@@ -42,9 +42,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
         imageName: 'assets/imagen/man-icon.png',
       ),
       DrawerList(
-        index: DrawerIndex.Help,
-        labelName: 'Destino Bloc',
-        icon: Icon(Icons.help),
+        index: DrawerIndex.chat,
+        labelName: 'Chat',
+        icon: Icon(Icons.chat),
       ),
       DrawerList(
         index: DrawerIndex.Invite,
@@ -297,7 +297,8 @@ enum DrawerIndex {
   About,
   Invite,
   Testing,
-  Imagex
+  Imagex,
+  chat
 }
 
 class DrawerList {

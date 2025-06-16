@@ -1,6 +1,7 @@
 import 'package:granturismo_flutter/theme/AppTheme.dart';
 import 'package:granturismo_flutter/drawer/drawer_user_controller.dart';
 import 'package:granturismo_flutter/drawer/home_drawer.dart';
+import 'package:granturismo_flutter/ui/chat/chat_screen.dart';
 import 'package:granturismo_flutter/ui/help_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:granturismo_flutter/ui/destino/destino_main.dart';
@@ -59,9 +60,9 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
         setState(() {
           screenView = DestinoMain();
         });
-      } else if (drawerIndex == DrawerIndex.Imagex) {
+      } else if (drawerIndex == DrawerIndex.chat) {
         setState(() {
-          //screenView = MainUploadImage();
+          screenView = ChatWebSocketScreen();
         });
       } else {
         //do in your way......

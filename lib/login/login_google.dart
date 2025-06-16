@@ -83,110 +83,110 @@ class _LoginPageState extends State<LoginPage> {
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-         Row(
+          Row(
 
-           mainAxisAlignment: MainAxisAlignment.center,
-           children: [
-             Text(title),
-             Checkbox(value: initValue, onChanged: (b) => onChanged(b!))
-           ],
-         )
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(title),
+              Checkbox(value: initValue, onChanged: (b) => onChanged(b!))
+            ],
+          )
         ]);
   }
 
   Form _buildForm() {
     return Form(
-      key: _formKey,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 40, right: 40),
-        child: Column(
-          children: <Widget>[
-            TextField(
-              decoration: InputDecoration(
-                border: UnderlineInputBorder(),
-                hintText: "Usuario",
-                labelText: "Usuario",
-                helperText:"Coloque un correo",
-                helperStyle:TextStyle(color:Colors.green),
+        key: _formKey,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 40, right: 40),
+          child: Column(
+            children: <Widget>[
+              TextField(
+                decoration: InputDecoration(
+                  border: UnderlineInputBorder(),
+                  hintText: "Usuario",
+                  labelText: "Usuario",
+                  helperText:"Coloque un correo",
+                  helperStyle:TextStyle(color:Colors.green),
 
-                alignLabelWithHint: false,
-                filled: true,
-              ),
-              controller: _controllerUser,
-              textInputAction: TextInputAction.done,
-            ),
-            SizedBox(height: 16),
-            TextField(
-              obscureText: passwordVisible,
-              decoration: InputDecoration(
-                border: UnderlineInputBorder(),
-                hintText: "Password",
-                labelText: "Password",
-                helperText:"La contraseña debe contener un carácter especial",
-                helperStyle:TextStyle(color:Colors.green),
-                suffixIcon: IconButton(
-                  icon: Icon(passwordVisible
-                      ? Icons.visibility
-                      : Icons.visibility_off),
-                  onPressed: () {
-                    setState(
-                          () {
-                        passwordVisible = !passwordVisible;
-                      },
-                    );
-                  },
+                  alignLabelWithHint: false,
+                  filled: true,
                 ),
-                alignLabelWithHint: false,
-                filled: true,
+                controller: _controllerUser,
+                textInputAction: TextInputAction.done,
               ),
-              controller: _controllerPass,
-              keyboardType: TextInputType.visiblePassword,
-              textInputAction: TextInputAction.done,
-            ),
-
-            SizedBox(
-              height: 24,
-            ),
-            Button  (
-              label: 'Ingresar',
-              onTap: () async{
-                print("Holassss");
-                //fireInitial();
-                if (_formKey.currentState!.validate() && _controllerUser.text!="") {
-                  print("Usuario: ${_controllerUser.text}  clave:${_controllerPass.text}");
-
-                  final prefs= await SharedPreferences.getInstance();
-
-                  final api=Provider.of<UsuarioApi>(context,listen: false);
-                  final user=UsuarioLogin.login(_controllerUser.text, _controllerPass.text);
-                  bool ingreso=false;
-                  api.login(user).then((value){
-                    tokenx="Bearer "+value.token;
-                    prefs.setString("token", tokenx);
-                    TokenUtil.TOKEN=tokenx;
-                    ingreso=true;
-                    if(ingreso==true){
-                      prefs.setString("usernameLogin", _controllerUser.text);
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return NavigationHomeScreen();
-                          },
-                        ),
+              SizedBox(height: 16),
+              TextField(
+                obscureText: passwordVisible,
+                decoration: InputDecoration(
+                  border: UnderlineInputBorder(),
+                  hintText: "Password",
+                  labelText: "Password",
+                  helperText:"La contraseña debe contener un carácter especial",
+                  helperStyle:TextStyle(color:Colors.green),
+                  suffixIcon: IconButton(
+                    icon: Icon(passwordVisible
+                        ? Icons.visibility
+                        : Icons.visibility_off),
+                    onPressed: () {
+                      setState(
+                            () {
+                          passwordVisible = !passwordVisible;
+                        },
                       );
+                    },
+                  ),
+                  alignLabelWithHint: false,
+                  filled: true,
+                ),
+                controller: _controllerPass,
+                keyboardType: TextInputType.visiblePassword,
+                textInputAction: TextInputAction.done,
+              ),
+
+              SizedBox(
+                height: 24,
+              ),
+              Button  (
+                label: 'Ingresar',
+                onTap: () async{
+                  print("Holassss");
+                  //fireInitial();
+                  if (_formKey.currentState!.validate() && _controllerUser.text!="") {
+                    print("Usuario: ${_controllerUser.text}  clave:${_controllerPass.text}");
+
+                    final prefs= await SharedPreferences.getInstance();
+
+                    final api=Provider.of<UsuarioApi>(context,listen: false);
+                    final user=UsuarioLogin.login(_controllerUser.text, _controllerPass.text);
+                    bool ingreso=false;
+                    api.login(user).then((value){
+                      tokenx="Bearer "+value.token;
+                      prefs.setString("token", tokenx);
+                      TokenUtil.TOKEN=tokenx;
+                      ingreso=true;
+                      if(ingreso==true){
+                        prefs.setString("usernameLogin", _controllerUser.text);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return NavigationHomeScreen();
+                            },
+                          ),
+                        );
+                      }
                     }
+
+                    ).catchError((onError){
+                      print(onError.toString());
+                    });
+
                   }
-
-                  ).catchError((onError){
-                    print(onError.toString());
-                  });
-
-                }
-              },
-            ),
-          ],
-        ),
-      )
+                },
+              ),
+            ],
+          ),
+        )
     );
   }
 
@@ -202,16 +202,16 @@ class _LoginPageState extends State<LoginPage> {
             print("Entro Google: $modLocal");
             TokenUtil.localx=modLocal;
             if(!TokenUtil.localx){
-            final api=Provider.of<UsuarioApi>(context,listen: false);
-            final user=UsuarioLogin.login("davidmp@upeu.edu.pe", "Da12345*");
-            api.login(user).then((value){
-              tokenx="Bearer "+value.token;
-              prefs.setString("token", tokenx);
-              TokenUtil.TOKEN=tokenx;
-              prefs.setString("usernameLogin", "${email==null?"":email}");
-            }).catchError((onError){
-              print(onError.toString());
-            });
+              final api=Provider.of<UsuarioApi>(context,listen: false);
+              final user=UsuarioLogin.login("davidmp@upeu.edu.pe", "Da12345*");
+              api.login(user).then((value){
+                tokenx="Bearer "+value.token;
+                prefs.setString("token", tokenx);
+                TokenUtil.TOKEN=tokenx;
+                prefs.setString("usernameLogin", "${email==null?"":email}");
+              }).catchError((onError){
+                print(onError.toString());
+              });
             }
             Navigator.of(context).push(
               MaterialPageRoute(
