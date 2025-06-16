@@ -15,7 +15,7 @@ class DestinoResp {
   final int idDestino;
   final String nombre;
   final String descripcion;
-  final String ubicacion;
+  final String? ubicacion;
   final String imagenUrl;
   final double latitud;
   final double longitud;

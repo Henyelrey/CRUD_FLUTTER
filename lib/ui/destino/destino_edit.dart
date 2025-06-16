@@ -39,7 +39,7 @@ class _DestinoFormEditState extends State<DestinoFormEdit> {
   void _cargarDatosIniciales() {
     _nombreController.text = modelA.nombre;
     _descripcionController.text = modelA.descripcion;
-    _ubicacionController.text = modelA.ubicacion;
+    _ubicacionController.text = modelA.ubicacion ?? '';
     _imagenUrlController.text = modelA.imagenUrl;
     _latitudController.text = modelA.latitud.toString();
     _longitudController.text = modelA.longitud.toString();

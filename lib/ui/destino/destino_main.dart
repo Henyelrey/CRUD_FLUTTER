@@ -63,7 +63,8 @@ class _DestinoUIState extends State<DestinoUI> {
     setState(() {
       filteredDestinos = destinos.where((dest) =>
       dest.nombre.toLowerCase().contains(value.toLowerCase()) ||
-          dest.ubicacion.toLowerCase().contains(value.toLowerCase())).toList();
+          (dest.ubicacion ?? '').toLowerCase().contains(value.toLowerCase())
+      ).toList();
     });
   }
 
@@ -128,7 +129,7 @@ class _DestinoUIState extends State<DestinoUI> {
                       AssetImage("assets/imagen/location-icon.png"),
                     ),
                     title: Text(destino.nombre),
-                    subtitle: Text(destino.ubicacion),
+                    subtitle: Text(destino.ubicacion ?? 'Sin ubicación'),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

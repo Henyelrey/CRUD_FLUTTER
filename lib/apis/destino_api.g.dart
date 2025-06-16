@@ -14,7 +14,7 @@ class _DestinoApi implements DestinoApi {
     this.baseUrl,
     this.errorLogger,
   }) {
-    baseUrl ??= 'http://10.0.2.2:8080';
+    baseUrl ??= 'http://localhost:8080';
   }
 
   final Dio _dio;
